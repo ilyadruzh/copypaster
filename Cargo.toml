@@ -1,0 +1,33 @@
+[package]
+name = "copypast"
+version = "0.1.0"
+authors = ["Ilya Druzhinin <ilya.druzh@gmail.com>"]
+
+[dependencies]
+clippy = {version = "0.0.131", optional = true}
+tokio = "0.0.0"
+walkdir = "1"
+rand = "0.3.17"
+time = "0.1"
+fs_extra = "1.0.0"
+same-file = "0.1.3"
+futures = "0.1.16"
+tokio-core = "0.1.10"
+tokio-tls = "0.1.3"
+temp_utp = "0.8.1"
+utp = "0.7.0"
+bittorrent = "0.2.0"
+piston = "0.34.0"
+piston2d-graphics = "0.23.0"
+glib = "0.3.1"
+cairo-rs = "0.2.0"
+conrod = "0.55.1"
+mles = "1.0.0"
+net2 = "0.2.31"
+winapi = "0.2.8"
+iron = "0.5.1"
+accumulator = "0.6.0"
+hyper = "0.11.6"
+tokio-proto = "0.1.1"
+dht = "0.0.6"
+kademlia = "0.1.0"
