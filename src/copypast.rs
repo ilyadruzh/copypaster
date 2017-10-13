@@ -8,26 +8,28 @@ use time::PreciseTime;
 
 use std::fs;
 
-// Составляет массив имён файлов
 pub fn search(dir: String) -> Vec<String> {
-
     let start = PreciseTime::now();
     
-    println!("Search in: {} START", &dir);
-    let paths = fs::read_dir(&dir).unwrap();
+    println!("###### START SEARCH IN {} #######", &dir);
     let mut list : Vec<String> = Vec::new();
-    
-    for path in paths {
-            let pathforname = path.unwrap().path();
-            //println!("pathforname: {:?}", pathforname);
-            let file_name = pathforname.file_name();
-            //println!("file_name: {:?}", file_name.unwrap().to_str().unwrap().to_string());
-            list.push(file_name.unwrap().to_str().unwrap().to_string());
+
+    if let Ok(entries) = fs::read_dir(&dir) {
+        for entry in entries {
+            if let Ok(entry) = entry {
+                if entry.file_name().to_str().unwrap().to_string().contains("jpg") | entry.file_name().to_str().unwrap().to_string().contains("JPG"){
+                    list.push(entry.file_name().to_str().unwrap().to_string().to_uppercase());
+                    }
+                    else{ }
+            }
+        }
     }
+
     list.sort();
 
+    println!("Directory: {}. Количество элементов: {}",dir, list.len());
+    println!("Directory: {}. Вместимость: {}",dir, list.capacity());
     let end = PreciseTime::now();
-    println!("Search in: {} END", &dir);
-    println!("TIME for: {} ", start.to(end));
+    println!("###### END SEARCH. TIME: {} #######\n", start.to(end));
     return list;
 }

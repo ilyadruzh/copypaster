@@ -1,10 +1,17 @@
 [package]
-name = "copypast"
-version = "0.1.0"
+name = "copypaster"
+version = "0.1.5"
 authors = ["Ilya Druzhinin <ilya.druzh@gmail.com>"]
 
 [dependencies]
 clippy = {version = "0.0.131", optional = true}
+log = "0.3.8"
+chrono = "0.4"
+winapi = "*"
+user32-sys = "*"
+kernel32-sys = "*"
+env_logger = "0.3"
+colored = "1.5"
 tokio = "0.0.0"
 walkdir = "1"
 rand = "0.3.17"
@@ -24,7 +31,6 @@ cairo-rs = "0.2.0"
 conrod = "0.55.1"
 mles = "1.0.0"
 net2 = "0.2.31"
-winapi = "0.2.8"
 iron = "0.5.1"
 accumulator = "0.6.0"
 hyper = "0.11.6"
