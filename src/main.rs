@@ -21,12 +21,12 @@ mod logging;
 
 
 ////////////////////////// _____ CONSTANTS_____ //////////////////////////
-const FIRSTFOLDER: &str = r"\\Serv02\base\TAMUZ8\Pictures\";
+const FIRSTFOLDER: &str = r"{directory}\{FolderFrom}}";
 
 // FOR TEST = C:\Users\druzhinin\Desktop\test2\
 // PRODUCTION = \\Serv17\base\Tamuz8\PICTURES\
-const SECONDFOLDER: &str = r"\\Serv17\base\Tamuz8\PICTURES\";
-const FOLDERFORLOG: &str = r"N:\TamuzXpa\8_Procedures\CopyPicturesFromMoscowToPerm\";
+const SECONDFOLDER: &str = r"{directory}\{FolderTo}}";
+const FOLDERFORLOG: &str = r"{directory}\{FolderLog}";
 
 ////////////////////////// _____ Entry point_____ //////////////////////////
 fn main() {
