@@ -7,6 +7,7 @@ extern crate env_logger;
 extern crate winapi;
 extern crate user32;
 extern crate kernel32;
+use std::env;
 
 use fs_extra::dir;
 use fs_extra::TransitProcess;
@@ -21,15 +22,21 @@ mod logging;
 
 
 ////////////////////////// _____ CONSTANTS_____ //////////////////////////
-const FIRSTFOLDER: &str = r"{directory}\{FolderFrom}}";
-
-// FOR TEST = C:\Users\druzhinin\Desktop\test2\
-// PRODUCTION = \\Serv17\base\Tamuz8\PICTURES\
-const SECONDFOLDER: &str = r"{directory}\{FolderTo}}";
-const FOLDERFORLOG: &str = r"{directory}\{FolderLog}";
+const FIRSTFOLDER: &str = r"folder_copypast_from";
+const SECONDFOLDER: &str = r"{folder_copypast_to}";
+const FOLDERFORLOG: &str = r"{folder_for_log}";
 
 ////////////////////////// _____ Entry point_____ //////////////////////////
 fn main() {
+
+    let args: Vec<String> = env::args().collect();
+
+    for x in 1..args.len(){
+        // TODO: Enum by arg number
+        // Example: if 1, then &arg[1] name = "Folder from: {}"
+        let y = &args[x];
+        println!("arg{}: {}", x, y);
+    }
 
     let start = PreciseTime::now();
     let first_vector: Vec<String> = copypast::search(FIRSTFOLDER.to_string());
@@ -39,7 +46,7 @@ fn main() {
 
     let end = PreciseTime::now();
 
-    println!("ОБЩЕЕ ВРЕМЯ РАБОТЫ ПРОГРАММЫ: {} секунд.", start.to(end));
+    println!("Total time: {} secs.", start.to(end));
 
     println!("Press eny key for Exit & Enter");
     let mut input = String::new();
@@ -66,13 +73,13 @@ fn compare(first: Vec<String>, second: Vec<String>) {
         
         match r {            
             Ok(_search_value) => { 
-                //println!("_____НАШЕЛ_____ ::: {}",&search_value);
+                //println!("_____FOUND_____ ::: {}",&search_value);
                 let mut existfile = String::new();
                 existfile.push_str(FIRSTFOLDER);
                 existfile.push_str(search_value);
                 },
             Err(_err) =>{    
-                println!("##### НЕ НАШЕЛ ##### ::: {}", search_value);
+                println!("##### NOT FOUND ##### ::: {}", search_value);
                 let mut copyfile = String::new();
                 copyfile.push_str(FIRSTFOLDER);
                 copyfile.push_str(search_value);
@@ -82,7 +89,7 @@ fn compare(first: Vec<String>, second: Vec<String>) {
         }
     }
 
-    println!("Количество новых файлов: {}", &from_paths.len());
+    println!("New files: {}", &from_paths.len());
 
     let (tx, rx) = mpsc::channel();
 
@@ -92,7 +99,7 @@ fn compare(first: Vec<String>, second: Vec<String>) {
                 Ok(result) => { 
                     result
                 }
-                Err(err) => {println!("Ошибка: {:?}", err)}
+                Err(err) => {println!("Error: {:?}", err)}
             };
             thread::sleep(Duration::new(0,500));
             fs_extra::dir::TransitProcessResult::Skip
@@ -103,7 +110,7 @@ fn compare(first: Vec<String>, second: Vec<String>) {
     loop {
         match rx.try_recv() {
             Ok(process_info) => {
-                println!("скопировано {} из {} байтов\r",
+                println!("copied {} from {} bytes\r",
                          process_info.copied_bytes,
                          process_info.total_bytes);
             }

@@ -27,15 +27,24 @@ pub fn create_log(folder: String, mut log_data: Vec<String>) {
                            why.description()),
         Ok(file) => file,
     };
-
+    
     for x in 0..log_data.len(){
-        log_data[x].push('\n');
+        match writeln!(file, "{}\r", log_data[x]) {
+            Err(why) => {
+                panic!("couldn't write to {}: {}", display, why.description())
+                },
+            Ok(_) => (),//println!("successfully wrote to {}", display),
+        }
+    }
 
-    match file.write_all(log_data[x].as_bytes()) {
-        Err(why) => {
-            panic!("couldn't write to {}: {}", display, why.description())
-        },
-        Ok(_) => (),//println!("successfully wrote to {}", display),
-    }
-    }
+    // for x in 0..log_data.len(){
+    //    log_data[x].push('\n');
+
+    //match file.write_all(log_data[x].as_bytes()) {
+    //    Err(why) => {
+    //        panic!("couldn't write to {}: {}", display, why.description())
+    //    },
+    //    Ok(_) => (),//println!("successfully wrote to {}", display),
+    //}
+    //}
 }
