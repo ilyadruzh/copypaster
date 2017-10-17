@@ -2,6 +2,14 @@
 name = "copypaster"
 version = "0.1.5"
 authors = ["Ilya Druzhinin <ilya.druzh@gmail.com>"]
+homepage = "https://github.com/ilyadruzhinin/copypaster"
+repository = "https://github.com/ilyadruzhinin/copypaster"
+documentation = "https://github.com/ilyadruzhinin/copypaster"
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["copy", "past", "utility", "framework", "exonum"]
+categories = ["service"]
+description = ""
 
 [dependencies]
 clippy = {version = "0.0.131", optional = true}
